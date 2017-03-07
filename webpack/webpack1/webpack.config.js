@@ -22,12 +22,14 @@ module.exports = {
     module: {
         loaders: [
             {
-                loader:"style!css",//css文件单独打包
-                test: /\.css$/
+                loader:"style-loader!css-loader!less-loader",//css文件单独打包
+                test: /\.(css|less)$/,
+                exclude: /node_modules/
             },
             {
-                loader: "url-loader?limit=200&&name=/img/[name].[ext]",
-                test: /\.(gif|png|jpeg|jpg|bmp)$/
+                loader: "url-loader?limit=10240&&name=/img/[name].[ext]",
+                test: /\.(gif|png|jpeg|jpg|bmp)$/i,//不区分大小写
+                exclude: /node_modules/
             },
             //  {
             //     loader: "file?limit=20&&name=/di/img/[name].[ext]",
@@ -41,16 +43,17 @@ module.exports = {
             {	//url-loader: 类似file-loader ,但是它可以返回一个DataUrl (base 64)如果文件小于设置的限制值limit
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
                 loader: "url?limit=2&&name=/fonts/[name].[ext]",
-                exclude: "/node_modules/"
+                exclude: /node_modules/
             },
             {
                 loader: "babel?compact=false",//.babelrc文件“-rm”网页部分更换无刷新页面
                 test: /\.(js|jsx)$/,
+                exclude: /node_modules/
             }
         ]
     },
     resolve: {
-        extensions: ['', '.web.tsx', '.web.ts', '.web.jsx', '.web.js', '.ts', '.tsx', '.js', '.jsx', '.json'],//自动补全后缀名
+        extensions: ['', '.web.tsx', '.web.ts', '.web.jsx', '.web.js', '.ts', '.tsx', '.js', '.jsx', '.json','png','jpg','gif'],//自动补全后缀名
         alias: {}//用来设置别名
     },
     // externals: {
@@ -80,7 +83,7 @@ module.exports = {
         new openBrower({url: "http://localhost:3003/list.html"}),
         new webpack.HotModuleReplacementPlugin(),//热加载模块，页面整体自动刷新
         new webpack.ProvidePlugin({$:"jquery",jQuery:"jquery",moment:"moment"}),// 全局挂载插件,等价于src引入
-        new webpack.optimize.CommonsChunkPlugin("vendors", "vendors.js")]//分析模块的共用代码, 单独打一个包出来
+        new webpack.optimize.CommonsChunkPlugin({name:"vendors",filename:"vendors.js"})]//分析模块的共用代码, 单独打一个包出来
 }
 //安装依赖 webpack style-loader css-loader url-loader(npm3.x需单独下载file-loader)
 //babel-loader(npm3.x需单独安装babel-core)   babel-preset-es2015  babel-preset-react
