@@ -26,12 +26,10 @@ module.exports = {
             }
             , {
                 loader: "style-loader!css-loader!less-loader",//如果npm为3.x,npm install less npm install less-loader
-                exclude: /node_modules/,
                 test: /\.(css|less)$/
             }
             , {
                 loaders:["url-loader?limit=10240&&name=/imgs/[name]-[hash:5].[ext]","image-webpack-loader"],//image-webpack-loader压缩图片
-                exclude: /node_modules/,
                 test: /\.(png|jpg|gif|svg)$/i   //  /i不去区分大小写
             }
         ]

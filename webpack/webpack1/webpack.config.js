@@ -3,16 +3,10 @@ var openBrower = require("open-browser-webpack-plugin");//自动打开浏览器�
 // var ExtractTextPlugin = require("extract-text-webpack-plugin");//分离css
 module.exports = {
     entry: {
-        // orderPay:"./orderPay.jsx",
-        // confirm:"./confirm.jsx",
-        // body:"./gymResource/body.jsx",
-        // detail: "./detail.jsx",
-        orderList:"./components/orderList/orderList.jsx",
-        orderPage:"./components/orderPage/orderPage.jsx",
         list: "./components/list/list.jsx",
         book: "./components/book/book.jsx",
         // users: "./src/users.jsx",
-        vendors: ["react", "react-router", "react-dom", "react-redux", "amazeui-touch","antd","antd-mobile"]//分离第三方库
+        vendors: ["react", "react-router", "react-dom", "react-redux"]//分离第三方库,antd无能放在这里,否则无法实现按需加载
     },
     output: {
         publicPath:"/",//设定静态资源路径
@@ -23,13 +17,11 @@ module.exports = {
         loaders: [
             {
                 loader:"style-loader!css-loader!less-loader",//css文件单独打包
-                test: /\.(css|less)$/,
-                exclude: /node_modules/
+                test: /\.(css|less)$/
             },
             {
                 loader: "url-loader?limit=10240&&name=/img/[name].[ext]",
-                test: /\.(gif|png|jpeg|jpg|bmp)$/i,//不区分大小写
-                exclude: /node_modules/
+                test: /\.(gif|png|jpeg|jpg|bmp)$/i//不区分大小写
             },
             //  {
             //     loader: "file?limit=20&&name=/di/img/[name].[ext]",
@@ -37,13 +29,11 @@ module.exports = {
             // },
             // {
             //     test: /\.(eot|svg|ttf|woff|woff2)$/,
-            //     loader: "file?limit=2&&name=/fonts/[name].[ext]",
-            //     exclude: "/node_modules/"
+            //     loader: "file?limit=2&&name=/fonts/[name].[ext]"
             // },
             {	//url-loader: 类似file-loader ,但是它可以返回一个DataUrl (base 64)如果文件小于设置的限制值limit
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
-                loader: "url?limit=2&&name=/fonts/[name].[ext]",
-                exclude: /node_modules/
+                loader: "url?limit=2&&name=/fonts/[name].[ext]"
             },
             {
                 loader: "babel?compact=false",//.babelrc文件“-rm”网页部分更换无刷新页面

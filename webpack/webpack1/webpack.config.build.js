@@ -20,7 +20,6 @@ module.exports = {
             {
                 loader:"style-loader!css-loader!less-loader",//css文件单独打包
                 test: /\.(css|less)$/
-                exclude: /node_modules/
             },
 
             // {	//loader文件加载顺序从右至左,从下至上;先将文件
@@ -30,13 +29,11 @@ module.exports = {
             // },
             {	//file-loader:将匹配到的文件复制到输出文件夹，并根据output.publicPath的设置返回文件路径
                 loader: "url-loader?limit=200000&&name=./imgs/[name].[ext]",
-                test: /\.(gif|png|jpeg|jpg|bmp)$/,
-                exclude: /node_modules/
+                test: /\.(gif|png|jpeg|jpg|bmp)$/
             },
             {	//url-loader: 类似file-loader ,但是它可以返回一个DataUrl (base 64)如果文件小于设置的限制值limit
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
-                loader: "url?limit=200000000000&&name=./fonts/[name].[ext]",
-                exclude: /node_modules/
+                loader: "url?limit=200000000000&&name=./fonts/[name].[ext]"
             },
             {
                 loader: "babel?compact=false",
