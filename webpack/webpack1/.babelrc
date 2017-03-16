@@ -12,8 +12,7 @@
       "import",
       {
         "libraryName": "antd",
-        "libraryDirectory": "lib",
-        "style": "css"
+        "style": true
       }
     ]
   ],
