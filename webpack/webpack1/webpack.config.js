@@ -5,8 +5,7 @@ module.exports = {
     entry: {
         list: "./components/list/list.jsx",
         book: "./components/book/book.jsx",
-        // users: "./src/users.jsx",
-        vendors: ["react", "react-router", "react-dom", "react-redux"]//分离第三方库,antd无能放在这里,否则无法实现按需加载
+        vendors: ["react", "react-router", "react-dom", "react-redux","jquery","moment"]//分离第三方库,antd不能放在这里,否则无法实现按需加载
     },
     output: {
         publicPath:"/",//设定静态资源路径
@@ -23,17 +22,9 @@ module.exports = {
                 loader: "url-loader?limit=10240&&name=/img/[name].[ext]",
                 test: /\.(gif|png|jpeg|jpg|bmp)$/i//不区分大小写
             },
-            //  {
-            //     loader: "file?limit=20&&name=/di/img/[name].[ext]",
-            //     test: /\.(gif|png|jpeg|jpg|bmp)$/
-            // },
-            // {
-            //     test: /\.(eot|svg|ttf|woff|woff2)$/,
-            //     loader: "file?limit=2&&name=/fonts/[name].[ext]"
-            // },
             {	//url-loader: 类似file-loader ,但是它可以返回一个DataUrl (base 64)如果文件小于设置的限制值limit
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
-                loader: "url?limit=2&&name=/fonts/[name].[ext]"
+                loader: "url?limit=10240&&name=/fonts/[name].[ext]"
             },
             {
                 loader: "babel?compact=false",//.babelrc文件“-rm”网页部分更换无刷新页面
@@ -43,6 +34,10 @@ module.exports = {
         ]
     },
     resolve: {
+            // 配置默认扩展名    (踩坑区!!)
+            // 1.需要有一个默认空字符串“”，否则在require 全名的时候反而会找不到 
+            // 2.默认值是[“”, “.webpack.js”, “.web.js”, “.js”]
+            // 参考文档：https://webpack.github.io/docs/configuration.html
         extensions: ['', '.web.tsx', '.web.ts', '.web.jsx', '.web.js', '.ts', '.tsx', '.js', '.jsx', '.json','png','jpg','gif'],//自动补全后缀名
         alias: {}//用来设置别名
     },

@@ -28,12 +28,12 @@ module.exports = {
             // 	exclude: "/node_modules/"// 匹配不希望处理文件的路径
             // },
             {	//file-loader:将匹配到的文件复制到输出文件夹，并根据output.publicPath的设置返回文件路径
-                loader: "url-loader?limit=200000&&name=./imgs/[name].[ext]",
+                loader: "url-loader?limit=10240&&name=/imgs/[name].[ext]",
                 test: /\.(gif|png|jpeg|jpg|bmp)$/
             },
             {	//url-loader: 类似file-loader ,但是它可以返回一个DataUrl (base 64)如果文件小于设置的限制值limit
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
-                loader: "url?limit=200000000000&&name=./fonts/[name].[ext]"
+                loader: "url?limit=10240&&name=/fonts/[name].[ext]"
             },
             {
                 loader: "babel?compact=false",
@@ -43,6 +43,10 @@ module.exports = {
         ]
     },
     resolve: {
+			// 配置默认扩展名  (踩坑区！！！)
+			// 1.需要有一个默认空字符串“”，否则在require 全名的时候反而会找不到 
+			// 2.默认值是[“”, “.webpack.js”, “.web.js”, “.js”]
+			// 参考文档：https://webpack.github.io/docs/configuration.html
         extensions: ['', '.js', '.css', '.jsx', '.css', '.jpg', '.png'],//自动补全后缀名
         alias: {}//设置路径别名
     },
