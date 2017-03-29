@@ -53,7 +53,7 @@ module.exports = {
         //     // index: "/manage/",
         //     rewrites: [
         //         // shows views/landing.html as the landing page
-        //         { from: /^\/login/, to: '/login.html' },
+        //         { from: /^\/login/, to: '/login.html' },//from(设置根路由)to(访问此根路由时打开对应的静态页面)
         //         // shows views/subpage.html for all routes starting with /subpage
         //         { from: /^\/manage/, to: '/manage.html' },
         //             { from: /^\/users/, to: '/users.html' },
