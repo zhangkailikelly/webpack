@@ -61,7 +61,7 @@ module.exports = {
         //         { from: /./, to: '/404.html' },
         //     ],
         // },
-        devtool:"eval"
+        devtool:"inline-source-map"
     },
     plugins: [
       //  new ExtractTextPlugin("[name].css"),//分离css
