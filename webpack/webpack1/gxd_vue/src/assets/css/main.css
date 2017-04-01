@@ -1,0 +1,528 @@
+.bar-tab .tab-item.active,
+.bar-tab .tab-item:active  {
+  color: #6BBA9C;
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+.clearfix:after {
+    content: "\200B";
+    display: block;
+    height: 0;
+    clear: both;
+}
+a {
+  color: #6BBA9C;
+}
+
+.active-color {
+  color: #6BBA9C;
+}
+.text-center {
+  text-align: center;
+}
+
+.button.button-fill {
+  /*background: #0894ec;*/
+}
+.button.button-fill.active, .button.button-fill:active {
+  /*background: #0a8ddf;*/
+}
+
+figure {
+  margin: 0;
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: .5rem;
+}
+
+.card-container {
+  margin-bottom: 3rem;
+}
+
+.facebook-card .feed-imgs {
+  padding: .5rem;
+}
+.facebook-card .feed-imgs .thumb-img,
+.facebook-card .feed-retweeted-imgs .thumb-img {
+  display: inline-block;
+  height: 4rem;
+}
+
+.facebook-card .card-header {
+  overflow: hidden;
+  padding-bottom: .3rem;
+}
+
+.facebook-card .facebook-avatar {
+  margin-right: .4rem;
+}
+
+.facebook-avatar img,
+.avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.feed-text {
+  margin: 0 .5rem;
+  color: #3d4145;
+}
+
+.feed-retweeted {
+  background-color: #f9f9f9;
+  padding: .5rem;
+  margin: .5rem;
+}
+
+.card-container {
+  margin-top: 2.6rem;
+}
+
+.feed-retweeted-content {
+  margin-bottom: .5rem;
+}
+
+.facebook-card .facebook-name,
+.facebook-card .facebook-date {
+  font-size: .7rem;
+}
+
+.facebook-card .facebook-name {
+  color: #6BBA9C;
+}
+
+.facebook-card .facebook-date {
+  margin-top: .3rem;
+}
+
+.icon-message,
+.l-icon-xiaoxitixing,
+.l-icon-xiaoxitishi {
+  color: #d84141;
+  margin-right: .5rem;
+}
+
+/*.like-comment-counts span,
+.who-like span {
+  margin-right: .8rem;
+}*/
+.like-comment-counts span {
+  margin-right: .8rem;
+}
+.like-comment {
+  margin-top: .5rem;
+}
+.who-like {
+  white-space: nowrap;
+  font-size: .6rem;
+}
+
+.what-comment {
+  list-style: none;
+  padding-left: .5rem;
+  font-size: .7rem;
+  padding-bottom: .25rem
+}
+
+.pb-5 {
+  padding-bottom: .5rem;
+}
+
+.card-container .card {
+  font-size: .8rem;
+}
+
+.text-href {
+  color: #3d4145;
+  display: block;
+  cursor: pointer;
+}
+.like-comment-counts .text-href {
+  display: inline;
+  margin-right: .5rem;
+}
+.me-like {
+  color: #6BBA9C;
+}
+.bar .button-link {
+  color: #6bba9c;
+  font-size: 1rem;
+  line-height: 2.5rem;
+  height: 2.5rem;
+}
+
+.more-comments  a {
+  font-size: .6rem;
+}
+
+.bar {
+  height: 2.5rem;
+}
+.title {
+  line-height: 2.5rem;
+}
+.feed-retweeted-content .feed-retweeted-text img,
+.facebook-card .feed-text img {
+  display: inline;
+}
+/*!
+ * =====================================================
+ * Loding
+ * =====================================================
+ */
+/*== ball-beat ==*/
+
+@-webkit-keyframes ball-beat {
+  50% {
+    opacity: 0.2;
+    -webkit-transform: scale(0.75);
+    transform: scale(0.75);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes ball-beat {
+  50% {
+    opacity: 0.2;
+    -webkit-transform: scale(0.75);
+    transform: scale(0.75);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+.ball-beat {
+  top: 50%;
+  left: 50%;
+  z-index: 11000;
+  margin-top: -.55rem;
+  margin-left: -1.5rem;
+  position: absolute;
+}
+.ball-beat > div {
+  background-color: rgb(216, 65, 65);
+  width: 1rem;
+  height: 1rem;
+  border-radius: 100%;
+  margin: .1rem;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  display: inline-block;
+  -webkit-animation: ball-beat 0.7s 0s infinite linear;
+  animation: ball-beat 0.7s 0s infinite linear;
+}
+.ball-beat > div:nth-child(2n-1) {
+  -webkit-animation-delay: -0.35s !important;
+  animation-delay: -0.35s !important;
+}
+
+
+/*group use*/
+.gray {
+  color: #a7a7a7;
+}
+/*guanxd*/
+.picker-items-col.picker-items-col-center {
+  width: 100%;
+}
+.group-feeds-icon {
+  font-size: 1.5em;
+  line-height: rem;
+  margin: 0 .5rem;
+}
+.bar .button-nav.pull-right {
+  margin-right: 0;
+}
+/* 选人控件 */
+/*加载动画*/
+.loading{
+  -webkit-animation: load 1s linear infinite;
+  animation: load 1s linear infinite;
+  font-size: 1.5rem;
+  float: right;
+}
+@-webkit-keyframes load{
+  0%{-webkit-transform: rotate(0deg); }
+  100%{-webkit-transform: rotate(360deg); }
+}
+@keyframes load{
+  0%{transform: rotate(0deg); }
+  100%{transform: rotate(360deg); }
+}
+
+/* 选人控件 */
+/*加载动画*/
+.loading{
+  -webkit-animation: load 1s linear infinite;
+  animation: load 1s linear infinite;
+  font-size: 1.5rem;
+  float: right;
+}
+@-webkit-keyframes load{
+  0%{-webkit-transform: rotate(0deg); }
+  100%{-webkit-transform: rotate(360deg); }
+}
+@keyframes load{
+  0%{transform: rotate(0deg); }
+  100%{transform: rotate(360deg); }
+}
+/*注意，目前不能写到这里，应该写到sm.css中*/
+@font-face {font-family: "xrkj";
+  src: url('../fonts/selectUser/xrkjfont.eot'); /* IE9*/
+  src: url('../fonts/selectUser/xrkjfont.eot') format('embedded-opentype'), /* IE6-IE8 */
+  url('../fonts/selectUser/xrkjfont.woff') format('woff'), /* chrome, firefox */
+  url('../fonts/selectUser/xrkjfont.ttf') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('../fonts/selectUser/xrkjfont.svg') format('svg'); /* iOS 4.1- */
+}
+
+.xrkj {
+  font-family:"xrkj" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.xrkj-sousuo:before { content: "\e604"; }
+
+.xrkj-fanhui:before { content: "\e605"; }
+
+.xrkj-xuanze:before { content: "\e6da"; }
+
+.xrkj-xuanze1:before { content: "\e64c"; }
+
+.xrkj-jiazai:before { content: "\e61c"; }
+
+
+
+@font-face {font-family: "iconfont-jysq";
+  src: url('../fonts/jysq/jysq_iconfont.eot');
+  src: url('../fonts/jysq/jysq_iconfont.eot') format('embedded-opentype'),
+  url('../fonts/jysq/jysq_iconfont.woff') format('woff'),
+  url('../fonts/jysq/jysq_iconfont.ttf') format('truetype'),
+  url('../fonts/jysq/jysq_iconfont.svg') format('svg');
+}
+
+.iconfont-jysq {
+  font-family:"iconfont-jysq" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shezhi:before { content: "\e600"; }
+
+.icon-qunzuyidong:before { content: "\e660"; }
+
+.icon-jiahao:before { content: "\e601"; }
+
+.icon-pinglun:before { content: "\e602"; }
+
+.icon-bianxie:before { content: "\e603"; }
+
+.icon-iconfont92:before { content: "\e785"; }
+
+.icon-iconfont93:before { content: "\e786"; }
+
+.icon-qunzuduoren:before { content: "\e6d6"; }
+
+.icon-xiazai:before { content: "\e617"; }
+
+.icon-zan:before { content: "\e604"; }
+
+.icon-earth:before { content: "\e7ca"; }
+
+.icon-geren:before { content: "\e662"; }
+
+.icon-zi:before { content: "\e64c"; }
+
+.icon-wodeguanzhu:before { content: "\e65e"; }
+
+.icon-yonghu:before { content: "\e605"; }
+
+.icon-shanchu:before { content: "\e672"; }
+
+.icon-pinglun1:before { content: "\e606"; }
+
+.icon-iconfontjiahao:before { content: "\e607"; }
+
+.icon-aiziji:before { content: "\e614"; }
+
+.icon-155:before { content: "\e694"; }
+
+.icon-quxiaoguanzhu:before { content: "\e641"; }
+
+.icon-comiistupian:before { content: "\e632"; }
+
+.icon-12:before { content: "\e611"; }
+
+.icon-zuojiantou-copy:before { content: "\e613"; }
+
+.icon-zhuanfa:before { content: "\e65f"; }
+
+.icon-faxian:before { content: "\e608"; }
+
+.icon-zan1:before { content: "\e609"; }
+
+.icon-zhuanfa1:before { content: "\e60a"; }
+
+.icon-tongzhiguanbi:before { content: "\e60c"; }
+
+.icon-shangxiajiantou:before { content: "\e655"; }
+
+.icon-kaiguanji:before { content: "\e624"; }
+
+.icon-guanzhu:before { content: "\e866"; }
+
+.icon-shangxiajiantou-copy:before { content: "\e60b"; }
+
+.icon-icon1:before { content: "\e60f"; }
+
+.icon-xie:before { content: "\e610"; }
+
+.icon-kejian:before { content: "\e6af"; }
+
+.icon-xiaoxixiantiao:before { content: "\e612"; }
+
+.icon-iconfont-home:before { content: "\e661"; }
+
+/*公用颜色*/
+.green {
+  color: #1dbc97 !important;
+}
+.pswp {
+  z-index: 9999999 !important;
+}
+.video-player-box .container {
+  position: static;
+  border: 1px red solid;
+  width: 100%;
+}
+/*.__cov-video {
+  border: 1px red solid;
+}*/
+/*.__cov-contrl-video-slider {
+  width: 50% !important;
+  margin: 0 0 !important;
+}
+.__cov-contrl-play-btn {
+  width: 2rem !important;
+}*/
+.feeds-attach {
+  margin: .5rem;
+  padding-left: .5rem;
+}
+.feed-link {
+  display: inline-block;
+  background: url('./../img/icon_img/link.png') no-repeat;
+  padding-left: 1.25rem;
+  background-size: 1rem;
+}
+/*.VideoBg, .VideoBg__content {
+  height: 5rem !important;
+}
+.VideoBg video {
+  height: 5rem !important;
+}
+.__cov-video {
+  height: 7rem !important;
+}*/
+.video-box {
+  position: relative;
+  /*background: url('./../img/icon_img/video.png') no-repeat;*/
+  height: 5rem;
+  width: 46%;
+  margin: .5rem 0 0 .5rem;
+  float: left;
+}
+.video-cover {
+  width: 100%;
+  height: 100%;
+}
+.video-cover-icon {
+  position: absolute;
+  height: 2.5rem;
+  top: 50%;
+  left: 50%;
+  margin-left: -1.25rem;
+  margin-top: -1.25rem;
+}
+.close-video {
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+  color: #fff;
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 1.2rem;
+  z-index: 99999999;
+}
+.video-player-box {
+  position: fixed;
+  z-index: 999;
+  height: 100% !important;
+  width: 100%;
+  top: 0px;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: Center;
+}
+video {
+  height: 10rem !important;
+  width: 100% !important;
+  /*background: url(./../img/icon_img/videoTest.jpg)*/
+}
+.open-safari-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999999;
+  background: rgba(33, 32, 32, 0.8);
+  width: 100%;
+  height: 100%;
+}
+.open-safari-modal img {
+  width: 80%;
+  margin-left: 10%;
+}
+.feed-hide {
+  display: none !important;
+}
+
+/* 图片 */
+.what-comment .feed-imgs img{
+  width: 4rem !important;
+  height: 4rem !important;
+  margin-left: 1.6rem !important;
+}
+.feed-retweeted-imgs, .feed-imgs {
+  margin-left: 0rem !important;
+}

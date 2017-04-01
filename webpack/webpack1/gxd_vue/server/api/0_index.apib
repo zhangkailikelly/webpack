@@ -1,0 +1,83 @@
+FORMAT: 1.0.1
+
+# 教研社区 API 文档
+
+
+## 注意事项
+
+
+:::warning
+API 前缀为 `/jssq/api` 版本为 `1.0` ，在 url 地址上加参数 `&version=1.0`
+:::
+
+所有的 API 请求都是通过 json web token 进行获取，在 请求header 头里带上，如下。
+
+```
+Authorization: Bearer 5262d64b892e8d4341000001
+```
+后端应首先验证 token 信息是否准确，错误应该返回 401 Unauthorized。
+
+严格的以 HTTP 请求状态码表示请求是否成功。如下：
+
+- GET 请求成功 200 OK
+- POST 请求成功 201 Created,
+  一般情况下,所有的POST请求返回的内容都是新建资源的id,如果还需要获取其他内容,会在api中写出。
+- PUT 请求成功
+  - 创建资源返回 201 Created
+  - 更新资源返回 200 OK
+- DELETE 请求成功返回 204 No Content
+
+
+所有错误除了 404 应该返回具体的错误信息，如：
+
+```js
+{
+  "message": "Permission denied"
+}
+```
+
+- 服务器找不到资源：404 Not Found
+- 验证身份，token 错误: 401 Unauthorized
+- 身份验证成功但仍然不允许客户端访问资源(没有权限)：403 Forbidden
+- 请求格式正确，但由于含有语义错误，无法响应: 422 Unprocessable Entity
+  并且应该返回错误信息 errors:
+  例如：
+
+  ```js
+    {
+      "message": "Validation Failed",
+      "errors": [
+        {
+          "resource": "Issue",
+          "field": "title",
+          "code": "required"
+        }
+      ]
+    }
+  ```
+  其中 errors 各字段表示：
+  - resource 表示资源，
+  - field 表示key
+  - code 表示错误类型：
+    - invalid：某个字段的值非法，接口文档中会提供响应的信息，
+    - required： 缺失某个必须的字段，
+    - not_exist: 说明某个字段的值代表的资源不存在
+    - already_exist: 说明某个字段的值已经存在
+
+
+返回的 json 数据 应该严格的按照数据格式返回，为空时也应该返回响应的数据类型为空的值，如：
+
+- `object` 空应该返回 `null` 且不是字符串 `"null"`
+- `array` 空应该返回 `[]`
+- `string` 空应该返回 `''`
+
+所有时间都是以时间戳的形式进行传输,如:
+
+- created_at: 1466990064 创建时间,格式为Number(10位)。
+
+注意 为了规范:
+
+:::warning
+1. 所有 URL 地址上的单词若需要分割均用下划线显示, 如 per_page
+2.  所有 Response 回来的 JSON 中的key 一律用驼峰发命名，不得用下划线显示
+:::

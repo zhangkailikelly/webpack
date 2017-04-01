@@ -1,0 +1,50 @@
+# Group 群组资源
+
+## 获取指定群的所有资源列表 [GET /group_resouse{?group_id,page,per_page}]
+
++ Parameters
+    + group_id: `112121212`(string,required) - 指定群组的id
+    + page: 1 (number,optional) - 获取数据第几页
+    + per_page: 10 (number,optional) - 每页获取多少条数据
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes
+        + total_count: 100(number,required) - 该群组的资源总数
+        + data(array[object],fixed) - 资源数据
+            + (object)
+                + status(enum,required) - 资源大类型判断(1: 是视频, 0: 不是视频)
+                    + Members
+                        + 0(number)
+                        + 1(number)
+                + id: `12313123`(string,required) - 该资源的id
+                + name: `学科建设PPT`(string,required) - 资源的名字
+                + download: 1212(number,required) - 下载量
+                + download_url: `http://www.baidu.com/xxx.png`(string,required) - 资源下载绝对地址
+                + isLove(enum,required) - 该资源当前用户是否已经点赞(1:点过了,2:没有点呢)
+                + type: `png`(string,required) - 该资源的类型(例如:png、jpg、doc....)
+            + (object)
+                + status(enum,required) - 资源大类型判断(1: 是视频, 0: 不是视频)
+                    + Members
+                        + 1(number)
+                        + 0(number)
+                + id: `12313124`(string,required) - 该资源的id
+                + name: `学科建设PPT`(string,required) - 资源的名字
+                + download: 1212(number,required) - 下载量
+                + download_url: `http://covteam.u.qiniudn.com/oceans.mp4`(string,required) - 资源下载绝对地址
+                + isLove(enum,required) - 该资源当前用户是否已经点赞(1:点过了,2:没有点呢)
+                + type: `mp4`(string,required) - 该资源的类型(例如:png、jpg、doc....)
+
+
+## 删除某个资源 [DELETE /group_resouse/{resource_id}]
+
++ Parameters
+    + resource_id: `112121212`(string,required) - 资源的id
+
++ Response 204 (application/json;charset=utf-8)
+    + Attributes
+        + success(enum,required) - 移除是否成功(true/false)
+            + Members
+                + true(boolean,required)
+                + false(boolean,required)
+        + message: `添加成功`(string,required) - 操作返回信息

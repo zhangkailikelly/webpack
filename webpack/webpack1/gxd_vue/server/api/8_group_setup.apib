@@ -1,0 +1,190 @@
+# Group 群组设置
+
+## 获取新建学科群是选择群学段 [GET /group_level]
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (array[object], fixed)
+        + (object)
+            + id: `123` (string,required) - 学段id
+            + name: `小学` (string,required) - 学段名字
+        + (object)
+            + id: `124` (string,required) - 学段id
+            + name: `中学` (string,required) - 学段名字
+
+## 获取新建学科群是选择群学科 [GET /group_subject]
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (array[object], fixed)
+        + (object)
+            + id: `123` (string,required) - 类科id
+            + name: `自然科学` (string,required) - 类科名字
+        + (object)
+            + id: `124` (string,required) - 类科id
+            + name: `语文` (string,required) - 类科名字
+
+## 新建群 [POST /group]
+
+如果是新建的学科群，才会有type、grade、subject三个字段,这个请求用一个参数传过去result,是将一个对象转为字符串传给后台，需要后台处理
+group_create?result=对象转的字符串(所有数据)
+
++ Request (application/json;charset=utf-8)
+    + Attributes
+        + new_gropu_type(enum,required) - 新建群组时选择的群组的类型(subject: 学科群,ordinary: 普通群)
+            + Members
+                + `subject`(string,required)
+                + `ordinary`(string,required)
+        + cover_image: `12312312:xxx.png`(string,required) - 新建群组上传的头像信息
+        + name: `乐知行新建群组`(string,required) - 群组的名称
+        + description: `新建群组时的简介啊啊啊啊啊啊啊啊`(string,required) - 群组简介
+        + type: `-1` - 群类型(学科群特有字段)(区级传-1,校级传当前用户所在学校,前台写死)
+        + level: `222` - 学段id(学科群特有字段)
+        + subject: `111` - 学科id(学科群特有字段)
+        + member: `[{name:xxx,id:123123,type:member}]`(string,required) - 选择的群成员(是一个数组需要后端处理,如果是选择的整个部门则传部门id，后台需要以部门id获取部门所在成员)
+        + admin: `[{name:xxx,id:123123,type:member}]`(string,required) - 选择的群成员(是一个数组需要后端处理,如果是选择的整个部门则传部门id，后台需要以部门id获取部门所在成员)和选择群成员一致
+        + leader: `312312312`(string,required) - 选择的群主id(为空或不穿则表示创建者就是群主)
+
++ Response 201 (application/json;charset=utf-8)
+    + Attributes
+        + success(enum,required) - 移除是否成功(true/false)
+            + Members
+                + true(boolean,required)
+                + false(boolean,required)
+        + message: `添加成功`(string,required) - 操作返回信息
+
+
+## 修改群组基本信息 [PUT /group_info/{id}]
+
+修改群组基本信息，只允许修改头像，名称，简介(再请求中如果传的为空则代表不修改，使用原来的，那个参数不为空代表只修改那个，其他不变)
+
++ Parameters
+    + id: `112121212`(string,required) - 群组的id
+
++ Request (application/json;charset=utf-8)
+    + Attributes
+        + postFile: `12312312:xxx.png`(string,required) - 新建群组上传的头像信息
+        + name: `乐知行新建群组`(string,required) - 群组的名称
+        + description: `新建群组时的简介啊啊啊啊啊啊啊啊`(string,required) - 群组简介
+        + type(object) - 群类型(学科群特有字段)
+            + id: `123`(string,required) - 群类型的id
+            + name: `区级`(string,required) - 群类型的名称
+        + grade(object) - 学段(学科群特有字段)
+            + id: `123`(string,required) - 群学段的id
+            + name: `小学`(string,required) - 群学段的名称
+        + subject(object) - 学科(学科群特有字段)
+            + id: `123`(string,required) - 群学科的id
+            + name: `自然科学`(string,required) - 群学科的名称
++ Response 200 (application/json;charset=utf-8)
+    + Attributes
+        + success(enum,required) - 移除是否成功(true/false)
+            + Members
+                + true(boolean,required)
+                + false(boolean,required)
+        + message: `添加成功`(string,required) - 操作返回信息
+
+## 获取群组基本信息 [GET /group_info{?group_id,user_id}]
+
++ Parameters
+    + group_id: `112121212`(string,required) - 群组的id
+    + user_id: `3123131`(string,required) - 当前用户id(不需要可以忽略)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes
+        + cover_image_url: `http://www.baidu.com/xxx.png`(string,required) - 群头像地址
+        + name: `乐知行测试群`(string,required) - 群名称
+        + description: `群简介群简介群简介群简介群简介`(string,required) - 群简介
+        + type(object) - 群类型(学科群特有字段)
+            + id: `123`(string,required) - 群类型的id
+            + name: `区级`(string,required) - 群类型的名称
+        + grade(object) - 学段(学科群特有字段)
+            + id: `123`(string,required) - 群学段的id
+            + name: `小学`(string,required) - 群学段的名称
+        + subject(object) - 学科(学科群特有字段)
+            + id: `123`(string,required) - 群学科的id
+            + name: `自然科学`(string,required) - 群学科的名称
+        + role(enum,required) - 当前用户角色(1:群主,2:管理员,3:普通成员,4:不是本群成员)
+            + Members
+                + 1(number,required)
+                + 2(number,required)
+                + 3(number,required)
+                + 4(number,required)
+        + apply(enum,required) - 当前用户申请入群状态(1: 提交申请了，未审批，2: 拒绝申请(或之前都没有提交过申请)，3: 同意申请(直接进群了，isJoin为1))
+            + Members
+                + 1(number,required)
+                + 2(number,required)
+        + cover_bg_url: `http://covteam.u.qiniudn.com/poster.png`(string,required) - 群组背景图片
+
+
+## 申请验证 [POST /group_apply]
+
+申请入群
+
++ Request (application/json;charset=utf-8)
+    + Attributes
+        + group_id: `112121212`(string,required) - 群组的id
+        + user_id: `11212121111`(string,required) - 当前的id(不需要可以忽略)
+        + text: `申请的理由啊啊啊啊`(string,required) - 申请的理由
+
++ Response 201 (application/json;charset=utf-8)
+    + Attributes
+        + success(enum,required) - 操作是否成功(true/false)
+            + Members
+                + true(boolean,required)
+                + false(boolean,required)
+        + message: `添加成功`(string,required) - 操作返回信息
+
+
+## 解散该群 [POST /group_disband/{id}]
+
+只有群主可以解散该群
+
++ Parameters
+    + id: `112121212`(string,required) - 群组的id
+
++ Response 201 (application/json;charset=utf-8)
+    + Attributes
+        + success(enum,required) - 操作是否成功(true/false)
+            + Members
+                + true(boolean,required)
+                + false(boolean,required)
+        + message: `添加成功`(string,required) - 操作返回信息
+
+## 退群/管理员踢出群 [POST /group_logout]
+
+成员可退群,管理员踢出群合并
+
++ Request (application/json;charset=utf-8)
+    + Attributes
+        + group_id: `112121212`(string,required) - 群组的id
+        + user_id: `11212121111`(string,required) - 当前的id(不需要可以忽略)
+
++ Response 201 (application/json;charset=utf-8)
+    + Attributes
+        + success(enum,required) - 操作是否成功(true/false)
+            + Members
+                + true(boolean,required)
+                + false(boolean,required)
+        + message: `添加成功`(string,required) - 操作返回信息
+
+
+## 上传群头像 [POST /upload/avatar]
+
+上传群头像新增一个借口
+
++ Request (application/json;charset=utf-8)
+    + Attributes
+          + attach: `1sdasdadsadczf`(string,required) - key参数
+
++ Response 201 (application/json;charset=utf-8)
+    + Attributes
+        + success(enum,required) - 操作是否成功(true/false)
+            + Members
+                + true(boolean,required)
+                + false(boolean,required)
+        + message: `添加成功`(string,required) - 操作返回信息
+        + id: `123123`(string,required) - 图片id
+        + name: `暮狼寻乡`(string,required) - 图片名字
+        + type: `jpg`(string,required) - 图片格式
+        + url: `http://www.baidu.com/xxx.jpg`(string,required) - 图片阅览地址

@@ -1,0 +1,5 @@
+{
+  "excludeFiles": [
+    "./src/util/util.js"
+  ]
+}

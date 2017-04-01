@@ -1,0 +1,155 @@
+# Group 群组话题
+
+## 获取指定群的所有话题列表 [GET /group_topic{?group_id,page,per_page}]
+
++ Parameters
+    + group_id: `112121212`(string,required) - 指定群组的id
+    + page: 1 (number,optional) - 获取数据第几页
+    + per_page: 10 (number,optional) - 每页获取多少条数据
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes
+        + total_count: 100(number,required) - 该群的话题总数
+        + data(array[object],fixed) - 话题数据
+            + (object)
+                + id: `12312312312`(string,required) - 话题的id
+                + name: `话题名称霹雳哗啦`(string,required) - 话题的名称
+                + speak: 100(string,required) - 该话题发言总数
+                + isTop(enum,required) - 是否置顶(1:置顶,2:不置顶)
+                    + Members
+                        + 1(number,required)
+                        + 2(number,required)
+                + created_at: `2016-01-01`(string,required) - 该话题的创建时间
+                + create: `李小龙`(string,required) - 该话题的发起者
+
+## 获取指定话题下的详情 [GET /group_topic_detail{?topic_id,page,per_page}]
+ps: 看pc端的是这样的逻辑:每个话题可以有多个发言，每个发言就是一个动态,当进入话题详情时，需要该话题下的所有发言，也就是该话题下的所有动态
+群组话题和发现的话题详情都调用这个接口,发现下的就判断isComment可不可以评论
++ Parameters
+    + topic_id: `112121212`(string,required) - 指定话题的id
+    + page: 1(number,required) - 请求第几页
+    + per_page: 10(number,required) - 请求每页的数据量
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes
+        + name: `话题名称霹雳哗啦`(string,required) - 话题的名称
+        + role(enum,required) - 当前用户在动态所在群的角色(1:群主,2:管理员,3:普通成员,4:不是本群成员)
+            + Members
+                + 1(number,required)
+                + 2(number,required)
+                + 3(number,required)
+                + 4(number,required)
+        + create: `李老师`(string,required) - 话题发起人
+        + created_at: `10月19日 16:33`(string,required) - 话题发起时间
+        + total_count: 100(number,required) - 该话题发起的所有发言总数
+        + data(array[object],fixed) - 该话题的所有发言的数据(和获取动态一样????)
+            + (object)
+                + id: `123456` (string,required) - 动态id
+                + group: `小学语文学科群` (string,required) - 动态发表所在群(原型张没有说用的。带上以防万一)
+                + comments(object,required) - 动态评论数组(目前在首页只显示三条，详情中全部显示)
+                    + total_count: 100 (number,required) - 所有动态评论总数
+                    + data (array[object],fixed) - 动态评论的前三条
+                        + (object)
+                            + id: `9890`(string,required) - 评论id
+                            + user(object,required) - 评论人的信息obj
+                                + id: `231123`(string,required) - 评论人的id
+                                + name: `周润发`(string,required) - 评论人的name
+                                + profile_image_url: `http:www.baidu.com/xxx.jpg` - 评论人的头像图片地址
+                            + reply(object,required) - 评论回复人信息obj
+                                + id: `765665`(string,required) - 评论回复人的id
+                                + name: `赌神`(string,required) - 评论回复人的名字
+                            + created_at: `12秒前`(string,required) - 评论时间
+                            + text: `霹雳哗啦评论的内容啊啊`(string,required) - 评论的内容
+                + user(object,required) - 动态发表人信息对象
+                    + id: `1111` (string,required) - 动态发表人id
+                    + name: `王小二` (string,required) - 动态发表人name
+                    + profile_image_url: `http:www.baidu.com/xxx.jpg` (string,required) - 动态发表人头像地址
+                + created_at: `10月18日 20:14` (string,required) - 动态发表时间
+                + text: `霹雳哗啦动态内容` (string,required) - 动态内容
+                + pics(array[object],fixed) - 动态相关图片数组
+                    + (object)
+                        + name: `xxx`(string,required) - 动态相关图片名字1
+                        + thumb_url: `http:www.baidu.com/xxx.jpg`(string,required) - 动态相关图片缩略图地址
+                        + original_url: `http:www.baidu.com/xxx.jpg`(string,required) - 动态相关图片原图地址
+                        + width: `250`(string,required) - 原图宽度(好像是的，之前的api文档中没有，看线上请求的)
+                        + height: `250`(string,required) - 原图高度(好像是的，之前的api文档中没有，看线上请求的)
+                + likes(object,required) - 动态点赞信息obj
+                    + total_count: 22 (number,required) - 动态点赞人的总数
+                    + love(enum,required) - 自己是不是点了赞 1表示已点赞0表示未点赞
+                        + Members
+                            + 1(number,required)
+                            + 0(number,required)
+                    + data(array[object],fixed) - 点赞人信息obj
+                        + (object)
+                            + id: `111222333`(string,required) - 点赞人id
+                            + name: `李小龙`(string,required) - 点赞人姓名
+                + attach(array[object], fixed) - 动态附件(出了图片和视频的附件类型)
+                    + (object)
+                        + id: `123123` - 附件id
+                        + name: `附件名称` - 附件名称
+                        + download_url: `http://iflytek.lezhiyun.cn/jssq/resource/3613/download` - 下载地址
+                        + type: `doc` - 附件类型(不是图片和视频)
+                + vedio(array[object], fixed) - 视频
+                    + (object)
+                        + id: `221234` - 视频资源id
+                        + name: `魔兽预告片` - 视频资源名称
+                        + isLine(enum,required) - 是线上的视频还是本地上传的,1: 是线上, 0: 是本地
+                            + Members
+                                + 1(number)
+                                + 0(number)
+                        + url: `http://v.youku.com/v_show/id_XMTU5NzgzNzA3Ng==.html?from=s1.8-1-1.2&spm=a2h0k.8191407.0.0`
+                        + cover: `http://iflytek.lezhiyun.cn/vfs/js_file/24/7d/72/transpic/24c49d88ac50c2c7d46f044716eafc72.jpg` - 封面图片
+                    + (object)
+                        + id: `111221234` - 视频资源id
+                        + name: `本地的` - 视频资源名称
+                        + isLine(enum,required) - 是线上的视频还是本地上传的,1: 是线上, 0: 是本地
+                            + Members
+                                + 0(number)
+                                + 1(number)
+                        + url: `http://covteam.u.qiniudn.com/oceans.mp4` - 视频浏览链接
+                        + cover: `http://covteam.u.qiniudn.com/poster.png` - 封面图片
+                    + (object)
+                        + id: `111221234` - 视频资源id
+                        + name: `本地的2` - 视频资源名称
+                        + isLine(enum,required) - 是线上的视频还是本地上传的,1: 是线上, 0: 是本地
+                            + Members
+                                + 0(number)
+                                + 1(number)
+                        + url: `http://7xqjp2.com1.z0.glb.clouddn.com/5089.mp4` - 视频浏览链接
+                        + cover: `http://iflytek.lezhiyun.cn/vfs/js_file/24/7d/72/transpic/24c49d88ac50c2c7d46f044716eafc72.jpg` - 封面图片
+
+## 置顶/取消置顶一个话题 [POST /group_topic_top/{topic_id}]
+
++ Parameters
+    + topic_id: `112121212`(string,required) - 话题id
+
++ Request (application/json;charset=utf-8)
+    + Attributes
+        + action(enum,required) - 区别是用来置顶还是取消置顶(1:置顶,0:取消置顶)
+            + Members
+                + 1(number,required)
+                + 2(number,required)
+
++ Response 201 (application/json;charset=utf-8)
+    + Attributes
+        + success(enum,required) - 移除是否成功(true/false)
+            + Members
+                + true(boolean,required)
+                + false(boolean,required)
+        + message: `操作成功`(string,required) - 操作返回信息
+
+
+## 删除一个话题 [DELETE /group_topic/{topic_id}]
+
++ Parameters
+    + topic_id: `112121212`(string,required) - 话题id
+
++ Response 204 (application/json;charset=utf-8)
+    + Attributes
+        + success(enum,required) - 移除是否成功(true/false)
+            + Members
+                + true(boolean,required)
+                + false(boolean,required)
+        + message: `添加成功`(string,required) - 操作返回信息

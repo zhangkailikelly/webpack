@@ -1,0 +1,173 @@
+# Group 发现
+
+## 获取发现下的热门群组 [GET /finds{?type,page,per_page}]
+
++ Parameters
+    + type: `forum`(string,optional) - type区分获取发现的类别,forum代表群组
+    + page: 1 (number,optional) - 获取数据第几页
+    + per_page: 10 (number,optional) - 每页获取多少条数据
+
++ Response 200 (application/json;charset=utf-8)
+    + Attributes
+        + total_count: 100 (number,required) - 数据总数
+        + data(array[object], fixed) - 所有群组
+            + (object)
+                + id: `1231231` (string,required) - 群组id
+                + name: `xxx日历` (string,required) - 群组名字
+                + created_at: `10月18日 17:56` - 该群组创建的时间
+                + cover_image_url: `http:www.baidu.com/xxx.jpg` - 该群组头像图片
+                + member: 100(number,required) - 成员人数
+                + role(enum,required) - 当前用户在动态所在群的角色(1:群主,2:管理员,3:普通成员,4:不是本群成员)
+                    + Members
+                        + 1(number,required)
+                        + 2(number,required)
+                        + 3(number,required)
+                        + 4(number,required)
+
+
+## 获取发现下的热门话题 [GET /finds_topic{?type,page,per_page}]
+
+:::warning
+注意这里的接口全部都是finds,不是finds_topic,只是在一个文件中不能有同命名的接口,就该了一下，真正的是/finds?type=topic&page=1&per_page=10
+:::
+
++ Parameters
+    + type: `topic`(string,optional) - type区分获取发现的类别,topic代表话题
+    + page: 1 (number,optional) - 获取数据第几页
+    + per_page: 10 (number,optional) - 每页获取多少条数据
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes
+        + total_count: 100(number,required) - 话题总数
+        + data(array[object],fixed) - 话题数据
+            + (object)
+                + id: `12312312312`(string,required) - 话题的id
+                + name: `话题名称霹雳哗啦`(string,required) - 话题的名称
+                + speak: 100(string,required) - 该话题发言总数
+                + isTop(enum,required) - 是否置顶(1:置顶,2:不置顶)
+                    + Members
+                        + 1(number,required)
+                        + 2(number,required)
+                + group: `乐知行群组`(string,required) - 该话题所在的群组(不是群组话题传空)
+                + role(enum,required) - 当前用户在动态所在群的角色(1:群主,2:管理员,3:普通成员,4:不是本群成员)
+                    + Members
+                        + 1(number,required)
+                        + 2(number,required)
+                        + 3(number,required)
+                        + 4(number,required)
+                + created_at: `2016-01-01`(string,required) - 该话题的创建时间
+                + create: `李小龙`(string,required) - 该话题的发起者
+
+
+
+
+## 获取发现下的热门发言 [GET /finds_essay{?type,page,per_page}]
+
+:::warning
+注意这里的接口全部都是finds,不是finds_essay,只是在一个文件中不能有同命名的接口,就该了一下，真正的是/finds?type=essay&page=1&per_page=10
+:::
+
++ Parameters
+    + type: `essay`(string,optional) - type区分获取发现的类别,essay代表发言
+    + page: 1 (number,optional) - 获取数据第几页
+    + per_page: 10 (number,optional) - 每页获取多少条数据
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes
+        + total_count: 100 (number,required) - 数据总数
+        + data(array[object], fixed) - 所有动态
+            + (object)
+                + id: `123456` (string,required) - 动态id
+                + group: `小学语文学科群` (string,required) - 动态发表所在群(个人发言传空)
+                + role(enum,required) - 当前用户在动态所在群的角色(1:群主,2:管理员,3:普通成员,4:不是本群成员)
+                    + Members
+                        + 1(number,required)
+                        + 2(number,required)
+                        + 3(number,required)
+                        + 4(number,required)
+                + comments(object,required) - 动态评论数组(目前在首页只显示三条，详情中全部显示)
+                    + total_count: 100 (number,required) - 所有动态评论总数
+                    + data (array[object],fixed) - 动态评论的前三条
+                        + (object)
+                            + id: `9890`(string,required) - 评论id
+                            + user(object,required) - 评论人的信息obj
+                                + id: `231123`(string,required) - 评论人的id
+                                + name: `周润发`(string,required) - 评论人的name
+                                + profile_image_url: `http:www.baidu.com/xxx.jpg` - 评论人的头像图片地址
+                            + reply(object,required) - 评论回复人信息obj
+                                + id: `765665`(string,required) - 评论回复人的id
+                                + name: `赌神`(string,required) - 评论回复人的名字
+                            + created_at: `12秒前`(string,required) - 评论时间
+                            + text: `霹雳哗啦评论的内容啊啊`(string,required) - 评论的内容
+                            + pics(array[object],fixed) - 评论图片或回复图片数组
+                                + (object)
+                                    + name: `xxx`(string,required) - 评论图片或回复图片名字1
+                                    + thumb_url: `http:www.baidu.com/xxx.jpg`(string,required) - 评论图片或回复图片缩略图地址
+                                    + original_url: `http:www.baidu.com/xxx.jpg`(string,required) - 评论图片或回复图片原图地址
+                                    + width: `250`(string,required) - 原图宽度(好像是的，之前的api文档中没有，看线上请求的)
+                                    + height: `250`(string,required) - 原图高度(好像是的，之前的api文档中没有，看线上请求的)
+                + user(object,required) - 动态发表人信息对象
+                    + id: `1111` (string,required) - 动态发表人id
+                    + name: `王小二` (string,required) - 动态发表人name
+                    + profile_image_url: `http:www.baidu.com/xxx.jpg` (string,required) - 动态发表人头像地址
+                + created_at: `10月18日 20:14` (string,required) - 动态发表时间
+                + text: `霹雳哗啦动态内容` (string,required) - 动态内容
+                + pics(array[object],fixed) - 动态相关图片数组
+                    + (object)
+                        + name: `xxx`(string,required) - 动态相关图片名字1
+                        + thumb_url: `http:www.baidu.com/xxx.jpg`(string,required) - 动态相关图片缩略图地址
+                        + original_url: `http:www.baidu.com/xxx.jpg`(string,required) - 动态相关图片原图地址
+                        + width: `250`(string,required) - 原图宽度(好像是的，之前的api文档中没有，看线上请求的)
+                        + height: `250`(string,required) - 原图高度(好像是的，之前的api文档中没有，看线上请求的)
+                + retweeted(object,required) - 转发动态信息obj
+                    + id: `1112212`(string,required) - 转发动态的id
+                    + text: `霹雳哗啦转发动态的内容`(string,required) - 转发动态的内容
+                    + created_at: `10月29日 15:10`(string,required) - 转发动态创建的时间
+                    + user(object,required) - 转发动态发表人信息对象
+                        + id: `1111222` (string,required) - 转发动态发表人id
+                        + name: `王小三` (string,required) - 转发动态发表人name
+                        + profile_image_url: `http:www.baidu.com/xxx.jpg` (string,required) - 转发动态发表人头像地址
+                    + pics(array[object],fixed) - 动态相关图片数组
+                        + (object)
+                            + name: `xxx`(string,required) - 动态相关图片名字1
+                            + thumb_url: `http:www.baidu.com/xxx.jpg`(string,required) - 动态相关图片缩略图地址
+                            + original_url: `http:www.baidu.com/xxx.jpg`(string,required) - 动态相关图片原图地址
+                            + width: `250`(string,required) - 原图宽度(好像是的，之前的api文档中没有，看线上请求的)
+                            + height: `250`(string,required) - 原图高度(好像是的，之前的api文档中没有，看线上请求的)
+                + likes(object,required) - 动态点赞信息obj
+                    + total_count: 22 (number,required) - 动态点赞人的总数
+                    + love(enum,required) - 自己是不是点了赞 1表示已点赞0表示未点赞
+                        + Members
+                            + 1(number,required)
+                            + 0(number,required)
+                    + data(array[object],fixed) - 点赞人信息obj
+                        + (object)
+                            + id: `111222333`(string,required) - 点赞人id
+                            + name: `李小龙`(string,required) - 点赞人姓名
+
+
+## 获取发现下的人群教师 [GET /finds_teacher{?type,page,per_page}]
+
+:::warning
+注意这里的接口全部都是finds,不是finds_teacher,只是在一个文件中不能有同命名的接口,就该了一下，真正的是/finds?type=teacher&page=1&per_page=10
+:::
+
++ Parameters
+    + type: `teacher`(string,optional) - type区分获取发现的类别,teacher代表教师
+    + page: 1 (number,optional) - 获取数据第几页
+    + per_page: 10 (number,optional) - 每页获取多少条数据
+
++ Response 200 (application/json;charset=utf-8)
+    + Attributes
+        + total_count: 100 (number,required) - 数据总数
+        + data(array[object], fixed) - 所有群组
+            + (object)
+                + id: `1231231` (string,required) - 教师id
+                + name: `李小龙` (string,required) - 教师名字
+                + cover_image_url: `http:www.baidu.com/xxx.jpg`(string,required) - 教师头像图片
+                + isFollow(enum,required) - 是否已经关注
+                    + Members
+                        + 1(number,required)
+                        + 2(number,required)

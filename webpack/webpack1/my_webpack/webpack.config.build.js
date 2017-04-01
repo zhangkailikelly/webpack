@@ -8,7 +8,7 @@ module.exports = {
         gymResource: "./gymResource/body.jsx",
         detail: "./detail.jsx",
         list: "./list.jsx",
-        vendors: ["react", "react-dom", "amazeui-touch", "antd","antd-mobile"]//分离第三方依赖，单独打包
+        vendors: ["react", "react-dom", "amazeui-touch"]//分离第三方依赖，单独打包
     },
     output: {
         publicPath: "/",//设置为想要的资源访问路径,如果没有设置，则默认从站点根目录加载

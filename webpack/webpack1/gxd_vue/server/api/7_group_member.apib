@@ -1,0 +1,72 @@
+# Group 群组成员
+
+## 获取指定群的所有成员 [GET /group_member{?group_id}]
+
++ Parameters
+    + group_id: `112121212`(string,required) - 指定群组的id
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes
+        + leader(object,required) - 群主信息obj
+            + id: `12311`(string,required) - 群主id
+            + name: `成龙`(string,required) - 群主名字
+            + isFollow(enum,required) - 是否已经关注(1:关注了，2:没有关注)
+                + Members
+                    + 1(number,required)
+                    + 2(number,required)
+        + admin(array[object],fixed) - 群管理员
+            + (object)
+                + id: `123111`(string,required) - 群管理员id1
+                + name: `成龙`(string,required) - 群管理员名字1
+                + isFollow(enum,required) - 是否已经关注
+                    + Members
+                        + 1(number,required)
+                        + 2(number,required)
+            + (object)
+                + id: `123112`(string,required) - 群管理员id2
+                + name: `陈真`(string,required) - 群管理员名字2
+                + isFollow(enum,required) - 是否已经关注
+                    + Members
+                        + 1(number,required)
+                        + 2(number,required)
+        + member(array[object],fixed) - 群成员
+            + (object)
+                + id: `124111`(string,required) - 群成员id1
+                + name: `霍元甲`(string,required) - 群成员名字1
+                + isFollow(enum,required) - 是否已经关注
+                    + Members
+                        + 1(number,required)
+                        + 2(number,required)
+            + (object)
+                + id: `124112`(string,required) - 群成员id2
+                + name: `孙悟空`(string,required) - 群成员名字2
+                + isFollow(enum,required) - 是否已经关注
+                    + Members
+                        + 1(number,required)
+                        + 2(number,required)
+            + (object)
+                + id: `124113`(string,required) - 群成员id3
+                + name: `李连杰`(string,required) - 群成员名字3
+                + isFollow(enum,required) - 是否已经关注
+                    + Members
+                        + 1(number,required)
+                        + 2(number,required)
+
+## 移除管理员/添加管理员 [POST /group_type]
+
++ Request (application/json;charset=utf-8)
+    + Attributes
+        + group_id: `112121212`(string,required) - 群组的id
+        + user_id: `11212121111`(string,required) - 群组的id
+        + type(enum,required) - 设置的角色(1：管理员，0：普通成员)
+            + Members
+                + 1(number,required)
+                + 0(number,required)
++ Response 201 (application/json;charset=utf-8)
+    + Attributes
+        + success(enum,required) - 移除是否成功(true/false)
+            + Members
+                + true(boolean,required)
+                + false(boolean,required)
+        + message: `移除成功`(string,required) - 操作返回信息
