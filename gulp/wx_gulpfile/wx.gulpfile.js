@@ -10,6 +10,7 @@ var autoprefixer = require('gulp-autoprefixer');
 var del = require("del");
 var runSequence = require('run-sequence'); //由于gulp 执行任务为并发，run-sequence 为顺序执行
 var gulpif = require('gulp-if');
+var plumber = require('gulp-plumber');//错误处理
 
 var env = process.env.NODE_ENV || 'development';
 var isProduction = () => env === 'production';
@@ -33,9 +34,6 @@ gulp.task("watch",function(){
       gulp.watch('src/**/*.{jpe?g,png,gif}', ['image'])
 })
 
-
-
-
 gulp.task('clean', del.bind(null, ['./dist']))
 
 gulp.task('build',['clean'], function(cb) {
@@ -44,15 +42,14 @@ gulp.task('build',['clean'], function(cb) {
 });
 
 gulp.task('image',function(){
-      //图片压缩
     gulp.src(['./src/images/*.{jpe?g,png,gif}'])
         .pipe(imagemin())
         .pipe(gulp.dest('./dist/images'));
 })
 
-
 gulp.task('html', function() {
     gulp.src('./src/pages/**/*.wxml')
+        .pipe(plumber())
         .pipe(htmlmin({
             collapseWhitespace: true, //去掉空格
             minifyJS: true, //压缩js
@@ -62,21 +59,20 @@ gulp.task('html', function() {
         .pipe(gulp.dest('./dist/pages'));
 });
 
-
 gulp.task('css', function() {
     gulp.src([
         "./src/**/**/*.wxss",
         "./src/*.wxss"
-    ]).pipe(autoprefixer([
-        'iOS >= 8',
-        'Android >= 4.1'
-    ])).pipe(cssnano()) //压缩css
+    ])
+    .pipe(plumber())
+    .pipe(autoprefixer({
+         browsers: ['> 1%',"last 40 versions"]
+    })).pipe(cssnano()) //压缩css
         .pipe(base64({
             maxImageSize: 100 * 1000 * 1024
         }))
         .pipe(gulp.dest('./dist'));
 });
-
 
 gulp.task("js", function() {
     gulp.src([
@@ -84,6 +80,7 @@ gulp.task("js", function() {
         "./src/**/*.js",
         "./src/**/**/*.js"
     ])
+        .pipe(plumber())
         .pipe(babel({
             presets: ['es2015']
         }))
@@ -93,6 +90,7 @@ gulp.task("js", function() {
 
 gulp.task("json", function() {
     gulp.src(["./src/*.json", "./src/**/**/*.json"])
+        .pipe(plumber())
         .pipe(gulpif(isProduction,jsonminify()))
         .pipe(gulp.dest('./dist'));
 })
